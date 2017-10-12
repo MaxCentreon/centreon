@@ -752,11 +752,19 @@ class CentreonServiceTemplate extends CentreonObject
                         $relobj->delete(null, $serviceId);
                     }
 
-                    $existingRelationIds = $relobj->getTargetIdFromSourceId(
-                        $relobj->getSecondKey(),
-                        $relobj->getFirstKey(),
-                        $serviceId
-                    );
+                    if ($matches[2] === 'addhosttemplate') {
+                        $existingRelationIds = $relobj->getTargetIdFromSourceId(
+                            $relobj->getSecondKey(),
+                            $relobj->getFirstKey(),
+                            $serviceId
+                        );
+                    } else {
+                        $existingRelationIds = $relobj->getTargetIdFromSourceId(
+                            $relobj->getFirstKey(),
+                            $relobj->getSecondKey(),
+                            $serviceId
+                        );
+                    }
 
                     foreach ($relationTable as $relationId) {
                         if ($matches[1] == "del") {
